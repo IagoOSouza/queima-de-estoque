@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Queima de Estoque - Produtos em Alta!</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: #222;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 248, 240, 0.92);
+            z-index: 0;
+        }
+        header {
+            position: relative;
+            background: none;
+            color: #fff;
+            padding: 2rem 0 1rem 0;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 24px rgba(220,36,118,0.10);
+            z-index: 1;
+            overflow: hidden;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+            background-size: cover;
+            opacity: 0.45;
+            z-index: 0;
+        }
+        header::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(255,81,47,0.92) 60%, rgba(221,36,118,0.85) 100%);
+            z-index: 1;
+        }
+        header > * {
+            position: relative;
+            z-index: 2;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.7rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        }
+        header p {
+            margin: 0.7rem 0 0 0;
+            font-size: 1.3rem;
+            font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        }
+        .confiança {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .confiança-item {
+            background: rgba(255,255,255,0.92);
+            color: #dd2476;
+            border-radius: 12px;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(220,36,118,0.08);
+            border: 1.5px solid #ffe0ef;
+        }
+        .confiança-item svg {
+            width: 22px;
+            height: 22px;
+            fill: #ff512f;
+        }
+        /* Filtros */
+        .filtros {
+            position: relative;
+            z-index: 2;
+            background: rgba(255,255,255,0.95);
+            margin: 2rem auto 0 auto;
+            max-width: 1200px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(220,36,118,0.06);
+            padding: 1.2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .filtros label {
+            font-weight: 600;
+            color: #dd2476;
+            margin-right: 0.5rem;
+        }
+        .filtros select, .filtros input[type="checkbox"] {
+            margin-right: 1.2rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ffe0ef;
+            padding: 0.3rem 0.7rem;
+        }
+        .filtros .status-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .produtos {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 2.2rem;
+            padding: 2.5rem 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+            z-index: 1;
+        }
+        .produto {
+            background: rgba(255,255,255,0.98);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(220, 36, 118, 0.10);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1.5px solid #ffe0ef;
+            opacity: 1;
+        }
+        .produto.esgotado {
+            opacity: 0.55;
+            filter: grayscale(0.7);
+            pointer-events: none;
+        }
+        .produto:hover:not(.esgotado) {
+            transform: translateY(-8px) scale(1.035);
+            box-shadow: 0 8px 32px rgba(220, 36, 118, 0.18);
+            border-color: #ffb3d6;
+        }
+        .produto img {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-bottom: 1px solid #ffe0ef;
+        }
+        .produto-info {
+            padding: 1.2rem 1rem 1rem 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .produto h2 {
+            font-size: 1.15rem;
+            margin: 0 0 0.6rem 0;
+            color: #dd2476;
+            font-weight: 700;
+        }
+        .preco {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: #ff512f;
+            margin-bottom: 0.6rem;
+        }
+        .btn-comprar {
+            background: linear-gradient(90deg, #ff512f 0%, #dd2476 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8rem;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            margin-top: auto;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(220,36,118,0.08);
+        }
+        .btn-comprar:hover {
+            background: linear-gradient(90deg, #dd2476 0%, #ff512f 100%);
+            box-shadow: 0 4px 16px rgba(220,36,118,0.16);
+        }
+        .produto.esgotado .btn-comprar {
+            background: #ccc;
+            color: #fff;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .produto.esgotado .btn-comprar::after {
+            content: "Esgotado";
+            display: block;
+            font-size: 0.95em;
+            color: #fff;
+            font-weight: 700;
+            margin-top: 0.2em;
+        }
+        .produto.esgotado .btn-comprar {
+            pointer-events: none;
+        }
+        .status-label {
+            display: inline-block;
+            background: #ff512f;
+            color: #fff;
+            font-size: 0.85em;
+            font-weight: 700;
+            border-radius: 6px;
+            padding: 0.2em 0.7em;
+            margin-bottom: 0.5em;
+            margin-right: 0.5em;
+        }
+        .produto.esgotado .status-label {
+            background: #888;
+        }
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            .produtos {
+                padding: 1rem;
+                gap: 1rem;
+            }
+            .produto img {
+                height: 140px;
+            }
+            .confiança {
+                gap: 1rem;
+            }
+            .confiança-item {
+                font-size: 0.95rem;
+                padding: 0.5rem 0.7rem;
+            }
+            .filtros {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
+        main, header {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Queima de Estoque!</h1>
+        <p>Presentes perfeitos para surpreender quem você ama.<br>
+        Descontos especiais para pessoas de 30 a 60 anos!</p>
+        <div class="confiança">
+            <div class="confiança-item">
+                <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5.25-3.5 10-7 10s-7-4.75-7-10V6l7-4zm0 2.18L6 6.09v5.91c0 4.41 2.72 8.44 6 9.72 3.28-1.28 6-5.31 6-9.72V6.09l-6-1.91zm-1 8.32l-2-2 1.41-1.41L11 9.59l3.59-3.59L16 7l-4 4z"/></svg>
+                Compra Segura
+            </div>
+            <div class="confiança-item">
+                <svg viewBox="0 0 24 24"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10zm-1-17h2v6h-2zm0 8h2v2h-2z"/></svg>
+                Garantia de Satisfação
+            </div>
+            <div class="confiança-item">
+                <svg viewBox="0 0 24 24"><path d="M20 8h-3V6c0-2.21-1.79-4-4-4s-4 1.79-4 4v2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-8-2c0-1.1.9-2 2-2s2 .9 2 2v2h-4V6zm8 14H4V10h16v10z"/></svg>
+                Privacidade Protegida
+            </div>
+            <div class="confiança-item">
+                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                Atendimento Humanizado
+            </div>
+        </div>
+    </header>
+    <main>
+        <form class="filtros" id="filtros">
+            <div>
+                <label for="preco">Preço:</label>
+                <select id="preco" name="preco">
+                    <option value="todos">Todos</option>
+                    <option value="0-50">Até R$ 50</option>
+                    <option value="50-100">R$ 50 a R$ 100</option>
+                    <option value="100-200">R$ 100 a R$ 200</option>
+                    <option value="200-9999">Acima de R$ 200</option>
+                </select>
+            </div>
+            <div class="status-group">
+                <label>Status:</label>
+                <label><input type="checkbox" name="disponivel" checked> Disponível</label>
+                <label><input type="checkbox" name="esgotado" checked> Esgotado</label>
+            </div>
+        </form>
+        <section class="produtos" id="produtos">
+            <!-- Produtos disponíveis -->
+            <div class="produto" data-preco="199.90" data-status="disponivel">
+                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Smartwatch">
+                <div class="produto-info">
+                    <span class="status-label">Disponível</span>
+                    <h2>Smartwatch Fitness</h2>
+                    <div class="preco">R$ 199,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 299,90</span></div>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto" data-preco="89.90" data-status="disponivel">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Fone Bluetooth">
+                <div class="produto-info">
+                    <span class="status-label">Disponível</span>
+                    <h2>Fone Bluetooth</h2>
+                    <div class="preco">R$ 89,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 149,90</span></div>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto" data-preco="119.90" data-status="disponivel">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Ring Light">
+                <div class="produto-info">
+                    <span class="status-label">Disponível</span>
+                    <h2>Ring Light Profissional</h2>
+                    <div class="preco">R$ 119,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 179,90</span></div>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <div class="produto" data-preco="59.90" data-status="disponivel">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Garrafa Térmica">
+                <div class="produto-info">
+                    <span class="status-label">Disponível</span>
+                    <h2>Garrafa Térmica Inox</h2>
+                    <div class="preco">R$ 59,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 99,90</span></div>
+                    <button class="btn-comprar">Comprar</button>
+                </div>
+            </div>
+            <!-- Produtos esgotados -->
+            <div class="produto esgotado" data-preco="39.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Caneca Personalizada">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Caneca Personalizada</h2>
+                    <div class="preco">R$ 39,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 59,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="79.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Almofada Massageadora">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Almofada Massageadora</h2>
+                    <div class="preco">R$ 79,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 129,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="149.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Caixa de Som Bluetooth">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Caixa de Som Bluetooth</h2>
+                    <div class="preco">R$ 149,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 199,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="29.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Chaveiro Inteligente">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Chaveiro Inteligente</h2>
+                    <div class="preco">R$ 29,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 49,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="99.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Kit Barbeador Elétrico">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Kit Barbeador Elétrico</h2>
+                    <div class="preco">R$ 99,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 159,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="69.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Luminária LED">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Luminária LED</h2>
+                    <div class="preco">R$ 69,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 109,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="179.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Aspirador Portátil">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Aspirador Portátil</h2>
+                    <div class="preco">R$ 179,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 249,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="54.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Copo Térmico">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Copo Térmico</h2>
+                    <div class="preco">R$ 54,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 79,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="109.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Relógio de Parede Moderno">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Relógio de Parede Moderno</h2>
+                    <div class="preco">R$ 109,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 169,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="44.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Kit Organizadores">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Kit Organizadores</h2>
+                    <div class="preco">R$ 44,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 69,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="159.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Fritadeira Elétrica">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Fritadeira Elétrica</h2>
+                    <div class="preco">R$ 159,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 229,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+            <div class="produto esgotado" data-preco="24.90" data-status="esgotado">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Caderno Inteligente">
+                <div class="produto-info">
+                    <span class="status-label">Esgotado</span>
+                    <h2>Caderno Inteligente</h2>
+                    <div class="preco">R$ 24,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 39,90</span></div>
+                    <button class="btn-comprar" disabled>Comprar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Filtro de produtos
+        const filtros = document.getElementById('filtros');
+        const produtos = document.querySelectorAll('.produto');
+
+        function filtrarProdutos() {
+            const precoSelecionado = filtros.preco.value;
+            const mostrarDisponivel = filtros.disponivel.checked;
+            const mostrarEsgotado = filtros.esgotado.checked;
+
+            produtos.forEach(produto => {
+                const preco = parseFloat(produto.getAttribute('data-preco'));
+                const status = produto.getAttribute('data-status');
+                let mostrar = false;
+
+                // Filtro de status
+                if (status === 'disponivel' && mostrarDisponivel) mostrar = true;
+                if (status === 'esgotado' && mostrarEsgotado) mostrar = true;
+
+                // Filtro de preço
+                if (precoSelecionado !== 'todos') {
+                    const [min, max] = precoSelecionado.split('-').map(Number);
+                    if (preco < min || preco > max) mostrar = false;
+                }
+
+                produto.style.display = mostrar ? '' : 'none';
+            });
+        }
+
+        filtros.addEventListener('change', filtrarProdutos);
+        filtrarProdutos();
+    </script>
+</body>
+</html>
