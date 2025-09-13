@@ -306,14 +306,13 @@
         </form>
         <section class="produtos" id="produtos">
             <!-- Produtos disponíveis -->
-            <div class="produto" data-preco="4.549,99" data-status="disponivel">
+            <div class="produto" data-preco="4.549,99" data-status="disponivel" data-nome="Bicicleta Elétrica Scooter 400W">
                 <img src="img/bikeelec.png" alt="Scooter Elétrica" class="produto-img">
                 <div class="produto-info">
                     <span class="status-label">Disponível</span>
                     <h2>Bicicleta Elétrica Scooter 400W Com Pedal ST-753</h2>
                     <div class="preco">R$ 4.549,99 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 299,90</span></div>
-                    <button class="btn-comprar">Comprar</button>
-                </div>
+                    <button class="btn-comprar" onclick="window.location.href='produto1.html'">Comprar</button>                </div>
             </div>
             <div class="produto" data-preco="69.90" data-status="disponivel">
                 <img src="img/fone.png" alt="Fone Bluetooth">
@@ -321,7 +320,7 @@
                     <span class="status-label">Disponível</span>
                     <h2>Fone de Ouvido Bluetooth Headset sem Fio Starmega - ST-130</h2>
                     <div class="preco">R$ 69,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 149,90</span></div>
-                    <button class="btn-comprar">Comprar</button>
+                    <button class="btn-comprar" onclick="window.location.href='produto2.html'">Comprar</button>
                 </div>
             </div>
             <div class="produto" data-preco="49.90" data-status="disponivel">
@@ -330,7 +329,7 @@
                     <span class="status-label">Disponível</span>
                     <h2>Ring Light ProfissionalRing Light Profissional para Celular com Suporte 12 Polegadas KNUP - OR-PL300</h2>
                     <div class="preco">R$ 49,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 179,90</span></div>
-                    <button class="btn-comprar">Comprar</button>
+                    <button class="btn-comprar" onclick="window.location.href='produto3.html'">Comprar</button>
                 </div>
             </div>
             <div class="produto" data-preco="159.90" data-status="disponivel">
@@ -339,7 +338,7 @@
                     <span class="status-label">Disponível</span>
                     <h2>Garrafa Térmica Portátil 650ml Azul PHILIPS - AWP2657DB</h2>
                     <div class="preco">R$ 159,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 99,90</span></div>
-                    <button class="btn-comprar">Comprar</button>
+                    <button class="btn-comprar" onclick="window.location.href='produto4.html'">Comprar</button>
                 </div>
             </div>
             <!-- Produtos esgotados -->
@@ -403,17 +402,6 @@
 
     filtros.addEventListener('change', filtrarProdutos);
     filtrarProdutos();
-
-    // Botão comprar
-    botoesComprar.forEach(botao => {
-    botao.addEventListener("click", (e) => {
-        e.stopPropagation(); // não dispara evento do card
-        const produto = e.target.closest('.produto');
-        const linkProduto = produto.getAttribute('data-link');
-        // Pode passar info do produto via query string
-        window.location.href = `produto.html?produto=${encodeURIComponent(linkProduto)}`;
-    });
-    });
 </script>
 </body>
 </html>
