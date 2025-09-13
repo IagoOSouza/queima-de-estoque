@@ -255,6 +255,11 @@
             position: relative;
             z-index: 2;
         }
+        .produto-img {
+            width: 70%;
+            height: 50px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -301,154 +306,96 @@
         </form>
         <section class="produtos" id="produtos">
             <!-- Produtos disponíveis -->
-            <div class="produto" data-preco="199.90" data-status="disponivel">
-                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Smartwatch">
+            <div class="produto" data-preco="4.549,99" data-status="disponivel">
+                <img src="img/bikeelec.png" alt="Scooter Elétrica" class="produto-img">
                 <div class="produto-info">
                     <span class="status-label">Disponível</span>
-                    <h2>Smartwatch Fitness</h2>
-                    <div class="preco">R$ 199,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 299,90</span></div>
+                    <h2>Bicicleta Elétrica Scooter 400W Com Pedal ST-753</h2>
+                    <div class="preco">R$ 4.549,99 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 299,90</span></div>
                     <button class="btn-comprar">Comprar</button>
                 </div>
             </div>
-            <div class="produto" data-preco="89.90" data-status="disponivel">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Fone Bluetooth">
+            <div class="produto" data-preco="69.90" data-status="disponivel">
+                <img src="img/fone.png" alt="Fone Bluetooth">
                 <div class="produto-info">
                     <span class="status-label">Disponível</span>
-                    <h2>Fone Bluetooth</h2>
-                    <div class="preco">R$ 89,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 149,90</span></div>
+                    <h2>Fone de Ouvido Bluetooth Headset sem Fio Starmega - ST-130</h2>
+                    <div class="preco">R$ 69,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 149,90</span></div>
                     <button class="btn-comprar">Comprar</button>
                 </div>
             </div>
-            <div class="produto" data-preco="119.90" data-status="disponivel">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Ring Light">
+            <div class="produto" data-preco="49.90" data-status="disponivel">
+                <img src="img/ring.png" alt="Ring Light">
                 <div class="produto-info">
                     <span class="status-label">Disponível</span>
-                    <h2>Ring Light Profissional</h2>
-                    <div class="preco">R$ 119,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 179,90</span></div>
+                    <h2>Ring Light ProfissionalRing Light Profissional para Celular com Suporte 12 Polegadas KNUP - OR-PL300</h2>
+                    <div class="preco">R$ 49,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 179,90</span></div>
                     <button class="btn-comprar">Comprar</button>
                 </div>
             </div>
-            <div class="produto" data-preco="59.90" data-status="disponivel">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Garrafa Térmica">
+            <div class="produto" data-preco="159.90" data-status="disponivel">
+                <img src="img/garrafa.png" alt="Garrafa Térmica">
                 <div class="produto-info">
                     <span class="status-label">Disponível</span>
-                    <h2>Garrafa Térmica Inox</h2>
-                    <div class="preco">R$ 59,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 99,90</span></div>
+                    <h2>Garrafa Térmica Portátil 650ml Azul PHILIPS - AWP2657DB</h2>
+                    <div class="preco">R$ 159,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 99,90</span></div>
                     <button class="btn-comprar">Comprar</button>
                 </div>
             </div>
             <!-- Produtos esgotados -->
-            <div class="produto esgotado" data-preco="39.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Caneca Personalizada">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Caneca Personalizada</h2>
-                    <div class="preco">R$ 39,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 59,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
             <div class="produto esgotado" data-preco="79.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Almofada Massageadora">
+                <img src="img/aumofada.png" alt="Almofada Massageadora">
                 <div class="produto-info">
                     <span class="status-label">Esgotado</span>
                     <h2>Almofada Massageadora</h2>
-                    <div class="preco">R$ 79,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 129,90</span></div>
+                    <div class="preco">R$ 99,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 129,90</span></div>
                     <button class="btn-comprar" disabled>Comprar</button>
                 </div>
             </div>
             <div class="produto esgotado" data-preco="149.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Caixa de Som Bluetooth">
+                <img src="img/som.png" alt="Caixa de Som Bluetooth">
                 <div class="produto-info">
                     <span class="status-label">Esgotado</span>
                     <h2>Caixa de Som Bluetooth</h2>
-                    <div class="preco">R$ 149,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 199,90</span></div>
+                    <div class="preco">R$ 109,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 199,90</span></div>
                     <button class="btn-comprar" disabled>Comprar</button>
                 </div>
             </div>
-            <div class="produto esgotado" data-preco="29.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Chaveiro Inteligente">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Chaveiro Inteligente</h2>
-                    <div class="preco">R$ 29,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 49,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="99.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Kit Barbeador Elétrico">
+            <div class="produto esgotado" data-preco="299.90" data-status="esgotado">
+                <img src="img/kitbarba.png" alt="Kit Barbeador Elétrico">
                 <div class="produto-info">
                     <span class="status-label">Esgotado</span>
                     <h2>Kit Barbeador Elétrico</h2>
-                    <div class="preco">R$ 99,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 159,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="69.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Luminária LED">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Luminária LED</h2>
-                    <div class="preco">R$ 69,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 109,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="179.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Aspirador Portátil">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Aspirador Portátil</h2>
-                    <div class="preco">R$ 179,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 249,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="54.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Copo Térmico">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Copo Térmico</h2>
-                    <div class="preco">R$ 54,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 79,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="109.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098c01?auto=format&fit=crop&w=400&q=80" alt="Relógio de Parede Moderno">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Relógio de Parede Moderno</h2>
-                    <div class="preco">R$ 109,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 169,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="44.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Kit Organizadores">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Kit Organizadores</h2>
-                    <div class="preco">R$ 44,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 69,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="159.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Fritadeira Elétrica">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Fritadeira Elétrica</h2>
-                    <div class="preco">R$ 159,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 229,90</span></div>
-                    <button class="btn-comprar" disabled>Comprar</button>
-                </div>
-            </div>
-            <div class="produto esgotado" data-preco="24.90" data-status="esgotado">
-                <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80" alt="Caderno Inteligente">
-                <div class="produto-info">
-                    <span class="status-label">Esgotado</span>
-                    <h2>Caderno Inteligente</h2>
-                    <div class="preco">R$ 24,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 39,90</span></div>
+                    <div class="preco">R$ 299,90 <span style="color:#888;font-size:0.9em;text-decoration:line-through;">R$ 159,90</span></div>
                     <button class="btn-comprar" disabled>Comprar</button>
                 </div>
             </div>
         </section>
     </main>
     <script>
+        // Seu número do WhatsApp no formato internacional (55 = Brasil)
+    const numeroWhatsApp = "5515998588492"; // <-- troque pelo seu
+
+    // Seleciona todos os botões de comprar
+    const botoesComprar = document.querySelectorAll(".btn-comprar");
+
+    botoesComprar.forEach(botao => {
+        botao.addEventListener("click", () => {
+            // Pega o nome do produto
+            const produto = botao.closest(".produto").querySelector("h2").innerText;
+
+            // Mensagem personalizada
+            const mensagem = `Olá, tenho interesse no produto: ${produto}. Ainda está disponível?`;
+
+            // Gera o link do WhatsApp
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+            // Abre o WhatsApp em uma nova aba
+            window.open(url, "_blank");
+        });
+    });
+
+
         // Filtro de produtos
         const filtros = document.getElementById('filtros');
         const produtos = document.querySelectorAll('.produto');
