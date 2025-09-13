@@ -372,60 +372,48 @@
             </div>
         </section>
     </main>
-    <script>
-        // Seu número do WhatsApp no formato internacional (55 = Brasil)
-    const numeroWhatsApp = "5515998588492"; // <-- troque pelo seu
+<script>
+    // Filtro de produtos
+    const filtros = document.getElementById('filtros');
+    const produtos = document.querySelectorAll('.produto');
 
-    // Seleciona todos os botões de comprar
-    const botoesComprar = document.querySelectorAll(".btn-comprar");
+    function filtrarProdutos() {
+        const precoSelecionado = filtros.preco.value;
+        const mostrarDisponivel = filtros.disponivel.checked;
+        const mostrarEsgotado = filtros.esgotado.checked;
 
-    botoesComprar.forEach(botao => {
-        botao.addEventListener("click", () => {
-            // Pega o nome do produto
-            const produto = botao.closest(".produto").querySelector("h2").innerText;
+        produtos.forEach(produto => {
+            const preco = parseFloat(produto.getAttribute('data-preco'));
+            const status = produto.getAttribute('data-status');
+            let mostrar = false;
 
-            // Mensagem personalizada
-            const mensagem = `Olá, tenho interesse no produto: ${produto}. Ainda está disponível?`;
+            // Filtro de status
+            if (status === 'disponivel' && mostrarDisponivel) mostrar = true;
+            if (status === 'esgotado' && mostrarEsgotado) mostrar = true;
 
-            // Gera o link do WhatsApp
-            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            // Filtro de preço
+            if (precoSelecionado !== 'todos') {
+                const [min, max] = precoSelecionado.split('-').map(Number);
+                if (preco < min || preco > max) mostrar = false;
+            }
 
-            // Abre o WhatsApp em uma nova aba
-            window.open(url, "_blank");
+            produto.style.display = mostrar ? '' : 'none';
         });
+    }
+
+    filtros.addEventListener('change', filtrarProdutos);
+    filtrarProdutos();
+
+    // Botão comprar
+    botoesComprar.forEach(botao => {
+    botao.addEventListener("click", (e) => {
+        e.stopPropagation(); // não dispara evento do card
+        const produto = e.target.closest('.produto');
+        const linkProduto = produto.getAttribute('data-link');
+        // Pode passar info do produto via query string
+        window.location.href = `produto.html?produto=${encodeURIComponent(linkProduto)}`;
     });
-
-
-        // Filtro de produtos
-        const filtros = document.getElementById('filtros');
-        const produtos = document.querySelectorAll('.produto');
-
-        function filtrarProdutos() {
-            const precoSelecionado = filtros.preco.value;
-            const mostrarDisponivel = filtros.disponivel.checked;
-            const mostrarEsgotado = filtros.esgotado.checked;
-
-            produtos.forEach(produto => {
-                const preco = parseFloat(produto.getAttribute('data-preco'));
-                const status = produto.getAttribute('data-status');
-                let mostrar = false;
-
-                // Filtro de status
-                if (status === 'disponivel' && mostrarDisponivel) mostrar = true;
-                if (status === 'esgotado' && mostrarEsgotado) mostrar = true;
-
-                // Filtro de preço
-                if (precoSelecionado !== 'todos') {
-                    const [min, max] = precoSelecionado.split('-').map(Number);
-                    if (preco < min || preco > max) mostrar = false;
-                }
-
-                produto.style.display = mostrar ? '' : 'none';
-            });
-        }
-
-        filtros.addEventListener('change', filtrarProdutos);
-        filtrarProdutos();
-    </script>
+    });
+</script>
 </body>
 </html>

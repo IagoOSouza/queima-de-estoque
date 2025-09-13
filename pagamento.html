@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento via PIX</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #dd2476;
+    }
+    ol {
+      text-align: left;
+      margin: 1.5rem 0;
+      padding-left: 1.2rem;
+    }
+    .qrcode {
+      margin: 2rem 0;
+    }
+    .qrcode img {
+      width: 250px;
+      height: 250px;
+    }
+    .pix {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    button {
+      background: linear-gradient(90deg, #ff512f, #dd2476);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #dd2476, #ff512f);
+    }
+    .copy-msg {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: green;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pagamento via PIX</h1>
+    <h2>Aviso: Se o valor não for enviado corretamente não sera enviado o produto e devolveremos o dinheiro</h2>
+    <p>Siga os passos abaixo para concluir seu pagamento:</p>
+    <ol>
+      <li>Abra o app do seu banco.</li>
+      <li>Escolha a opção <b>Pagar com PIX</b>.</li>
+      <li>Escaneie o QR Code abaixo <b>ou</b> copie a chave PIX.</li>
+      <li>Confirme o valor e finalize o pagamento.</li>
+    </ol>
+
+    <div class="qrcode">
+      <!-- Substitua a URL pelo QR Code do seu PIX -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=SUACHAVEPIX&type=png&size=250x250" alt="QR Code PIX">
+    </div>
+
+    <div class="pix">Chave PIX: <span id="chave">sua_chave_pix_aqui@exemplo.com</span></div>
+    <button onclick="copiarChave()">📋 Copiar Chave PIX</button>
+    <div class="copy-msg" id="copyMsg">✅ Chave copiada!</div>
+  </div>
+  <div class="termos">
+    <p>ao continuar, concorda com os termos de serviço e os termos de Privacidade</p>
+  </div>
+
+  <script>
+    function copiarChave() {
+      const chave = document.getElementById("chave").innerText;
+      navigator.clipboard.writeText(chave).then(() => {
+        const msg = document.getElementById("copyMsg");
+        msg.style.display = "block";
+        setTimeout(() => msg.style.display = "none", 2000);
+      });
+    }
+    // Pegar parâmetros da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const nome = urlParams.get('nome');
+  const preco = urlParams.get('preco');
+
+  // Adicionar na página
+  const container = document.querySelector('.container');
+  const infoProduto = document.createElement('p');
+  infoProduto.style.fontSize = '18px';
+  infoProduto.style.fontWeight = 'bold';
+  infoProduto.style.color = '#dd2476';
+  infoProduto.innerText = `Produto: ${nome} | Preço: ${preco}`;
+  container.insertBefore(infoProduto, container.firstChild);
+  </script>
+</body>
+</html>
